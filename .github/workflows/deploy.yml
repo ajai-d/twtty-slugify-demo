@@ -28,9 +28,11 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    # Provisioning + deploy is the billable, human-gated step. It runs only when
-    # the Human User has configured the Azure OIDC federated credential and the
-    # three repo secrets below (see twtty/replay-execution entry for 3i Deploy).
+    # Provisioning + deploy is the billable, human-gated step. It stays SKIPPED
+    # until the Human User configures Azure OIDC and sets repo variable
+    # AZURE_READY=true plus the three secrets below (see the 3i Deploy entry in
+    # the TWTTY replay log). Until then the pipeline is green with test only.
+    if: ${{ vars.AZURE_READY == 'true' }}
     environment: azure
     steps:
       - uses: actions/checkout@v4
