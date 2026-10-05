@@ -1,0 +1,64 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AZURE_RG: slugify-demo-rg
+  AZURE_LOCATION: eastus
+  APP_NAME: slugify-yvivbu
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: pytest -q
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    # Provisioning + deploy is the billable, human-gated step. It runs only when
+    # the Human User has configured the Azure OIDC federated credential and the
+    # three repo secrets below (see twtty/replay-execution entry for 3i Deploy).
+    environment: azure
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure login (OIDC — no stored secret)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Ensure resource group
+        uses: azure/cli@v2
+        with:
+          inlineScript: az group create -n "$AZURE_RG" -l "$AZURE_LOCATION"
+
+      - name: Provision infrastructure (Bicep)
+        uses: azure/arm-deploy@v2
+        with:
+          resourceGroupName: ${{ env.AZURE_RG }}
+          template: infra/main.bicep
+          parameters: appName=${{ env.APP_NAME }}
+
+      - name: Package application
+        run: zip -r app.zip src requirements.txt
+
+      - name: Deploy to App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.APP_NAME }}
+          package: app.zip
