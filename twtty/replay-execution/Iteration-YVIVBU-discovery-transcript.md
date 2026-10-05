@@ -21,4 +21,4 @@ Discovery mode: **Delegated** (Autopilot). The AI Agent decided and disclosed ea
 - **API mode:** applies — a small HTTP/JSON API; L1 keeps the API quality bar minimal (documented contract + tests).
 
 ## Notes
-Billable Azure provisioning/deploy remain hard-gated to the Human User (entry 003 constraint). The subscription ("Ajai's Subscription") is supplied by the Human User at the gated deploy step.
+Billable Azure provisioning/deploy remain hard-gated to the Human User (entry 003 constraint). The subscription (`<REDACTED:subscription>`) is supplied by the Human User at the gated deploy step.

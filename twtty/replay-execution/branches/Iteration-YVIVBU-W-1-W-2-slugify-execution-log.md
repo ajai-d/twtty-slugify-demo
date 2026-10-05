@@ -42,7 +42,7 @@ Branch-scoped replay log (sdlc §8.1.2) for the EXECUTE work of Iteration-YVIVBU
 - **Approval outcome:** Escalate
 - **Execution outcome:** Deployment is a billable/trust-boundary operation — hard guardrail. The AI Agent does NOT provision or deploy; it hands the one-time Azure OIDC + secret setup to the Human User (per iteration entry 003). Once set up, pushing to `main` runs the pipeline, which provisions and deploys.
 - **Artifact / path changed:** —
-- **Notes:** Required human steps: (1) create an Entra app registration / user-assigned managed identity; (2) add a federated credential for this repo's `main` / `azure` environment; (3) assign it Contributor on the target resource group/subscription; (4) set repo secrets `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID` (Ajai's Subscription). This Escalate is the hard-guardrail stop under Autopilot; it does not fail the iteration's build deliverables.
+- **Notes:** Required human steps: (1) create an Entra app registration / user-assigned managed identity; (2) add a federated credential for this repo's `main` / `azure` environment; (3) assign it Contributor on the target resource group/subscription; (4) set repo secrets `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID` (`<REDACTED:subscription>`). This Escalate is the hard-guardrail stop under Autopilot; it does not fail the iteration's build deliverables.
 
 ### br-W-1-W-2-slugify-006 · meta/branch-close · —
 
