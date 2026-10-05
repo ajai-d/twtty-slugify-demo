@@ -5,9 +5,9 @@ Derived snapshot (core §2). The replay-execution log is authoritative; this fil
 - **Active iteration:** Iteration-YVIVBU (baseline)
 - **Specialization:** baseline SDLC
 - **Risk level:** 1 (floor) + Azure cloud Runtime target
-- **Stage / gate position:** PLAN complete (PLAN-EXIT approved at entry 010)
-- **Execution mode:** Autopilot (scope: SPEC, PLAN, EXECUTE; billable Azure ops hard-gated)
-- **High-water sequence ID:** 010
-- **Open work items:** W-1 (app+tests), W-2 (IaC+CI/CD) — Sequential
-- **Reconciliation watermark:** entry 010
-- **Next action:** EXECUTE stage — W-1 then W-2 on one branch + PR
+- **Stage / gate position:** EXECUTE complete (EXECUTE-EXIT approved at entry 015) — iteration build done; live Azure deploy (BR-3) pending human-gated setup
+- **Execution mode:** Autopilot (returned to Human at EXECUTE-EXIT)
+- **High-water sequence ID:** 015
+- **Open work items:** W-1 ✓, W-2 ✓ (both delivered); deploy gated (entry 013)
+- **Reconciliation watermark:** entry 015
+- **Next action:** Human-gated Azure OIDC setup to enable the deploy job, OR start a new iteration

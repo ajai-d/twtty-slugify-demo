@@ -157,3 +157,76 @@ Baseline iteration of the Slugify API (standard software, SDLC specialization). 
 - **Execution outcome:** PLAN-EXIT approved. Two work items (W-1, W-2), Sequential, AC mapping complete.
 - **Artifact / path changed:** `twtty/plan/plan-Iteration-YVIVBU.md`
 - **Notes:** Self-approved under Autopilot with attribution (per entry 003). EXECUTE will run W-1 then W-2 on one short-lived branch with a single PR (sdlc §9).
+
+### 011 · execute/3b–3f · —
+
+- **Timestamp:** 2026-10-05T00:28:00Z
+- **Approval outcome:** Approved
+- **Approved prompt:**
+
+  ```
+  Deliver W-1 on branch W-1-W-2-slugify: implement slugify() and the FastAPI
+  endpoints, add tests covering AC-1..7, run them.
+  ```
+
+- **Execution outcome:** W-1 delivered — `slugify()` + `/slugify` + `/healthz`; 8 tests pass (AC-1..7). Branch evidence: `br-W-1-W-2-slugify-002`, `-003`.
+- **Artifact / path changed:** `src/app/slugify.py`, `src/app/main.py`, `tests/test_slugify.py`, `tests/test_api.py`, `requirements.txt`, `conftest.py`
+- **Notes:** Auto-approved under Autopilot (entry 003). 3d secret scanning: no secrets. Branch work recorded in the branch-scoped log (sdlc §8.1.2), not copied here.
+
+### 012 · execute/3g–3h · —
+
+- **Timestamp:** 2026-10-05T00:32:00Z
+- **Approval outcome:** Approved
+- **Approved prompt:**
+
+  ```
+  Deliver W-2 on the same branch: Bicep IaC for Azure App Service F1 and a
+  GitHub Actions pipeline that tests, provisions, and deploys.
+  ```
+
+- **Execution outcome:** W-2 delivered — `infra/main.bicep` (compiles, `az bicep build` exit 0) and `.github/workflows/deploy.yml`. Branch evidence: `br-W-1-W-2-slugify-004`.
+- **Artifact / path changed:** `infra/main.bicep`, `.github/workflows/deploy.yml`, `README.md`
+- **Notes:** Auto-approved under Autopilot. Deploy job gated behind `AZURE_READY` + OIDC secrets so CI stays green until the human enables Azure.
+
+### 013 · execute/3i · Escalate
+
+- **Timestamp:** 2026-10-05T00:33:30Z
+- **Approval outcome:** Escalate
+- **Approved prompt:**
+
+  ```
+  Provision and deploy to Azure.
+  ```
+
+- **Execution outcome:** Hard guardrail — deployment is a billable/trust-boundary operation. The AI Agent does NOT provision or deploy; it hands the one-time Azure OIDC + secret setup to the Human User (branch evidence `br-W-1-W-2-slugify-005`).
+- **Artifact / path changed:** —
+- **Notes:** Escalation surfaced to the Human User (per the entry 003 constraint). Required human steps and secrets listed in the branch log entry 005. BR-3 (live deploy) is pending that gated setup; all other acceptance criteria are met.
+
+### 014 · meta/branch-integrated · —
+
+- **Timestamp:** 2026-10-05T00:36:00Z
+- **Approval outcome:** Approved
+- **Approved prompt:**
+
+  ```
+  Integrate branch W-1-W-2-slugify via pull request.
+  ```
+
+- **Execution outcome:** branch integrated
+- **Artifact / path changed:** `twtty/replay-execution/branches/Iteration-YVIVBU-W-1-W-2-slugify-execution-log.md` (archived on `main`)
+- **Notes:** PR #1 merged to `main` (merge commit `70f831a`), integration method = merge. Delivered W-1, W-2. Branch close entry `br-W-1-W-2-slugify-006`; relied-upon branch entries 002–005. Branch deleted after archive.
+
+### 015 · execute/3m · EXECUTE-EXIT
+
+- **Timestamp:** 2026-10-05T00:40:00Z
+- **Approval outcome:** Approved
+- **Approved prompt:**
+
+  ```
+  Request EXECUTE-EXIT: iteration closeout — README and execution diagram
+  produced; summarize delivered vs pending.
+  ```
+
+- **Execution outcome:** EXECUTE-EXIT approved. Delivered: slug logic + API, 8 passing tests (AC-1..7), Bicep IaC, CI/CD pipeline, project README, execution diagram. Pending (human-gated): live Azure deploy (BR-3) once OIDC + `AZURE_READY` are configured.
+- **Artifact / path changed:** `README.md`, `twtty/replay-execution/Iteration-YVIVBU-execution-diagram.md`
+- **Notes:** Self-approved under Autopilot with attribution (per entry 003), returning to the Human User at EXECUTE-EXIT for review. The one open acceptance item is the billable deploy, deliberately gated by the hard guardrail (entry 013) — not an incomplete build.
