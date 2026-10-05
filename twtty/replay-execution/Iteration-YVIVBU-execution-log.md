@@ -113,3 +113,47 @@ Baseline iteration of the Slugify API (standard software, SDLC specialization). 
 - **Execution outcome:** SPEC-EXIT approved. Spec complete with metadata, requirements, use cases, slug rules, API contract, and 7 acceptance criteria.
 - **Artifact / path changed:** `twtty/spec/spec-Iteration-YVIVBU.md`
 - **Notes:** Self-approved under Autopilot with attribution (per entry 003). SEED artifacts unchanged. SPEC/PLAN/SEED artifacts commit directly to `main` (branch protection not yet provisioned; sdlc §8.3).
+
+### 008 · plan/2a–2c · —
+
+- **Timestamp:** 2026-10-05T00:12:00Z
+- **Approval outcome:** Approved
+- **Approved prompt:**
+
+  ```
+  Produce 2a architecture, 2b design, and 2c orchestration for the Slugify API:
+  file layout, work items with a dependency DAG, and AC-to-work-item mapping.
+  ```
+
+- **Execution outcome:** Plan drafted — architecture (FastAPI on Azure App Service F1, Actions CI/CD, Bicep IaC), design/file layout, W-1 (app+tests) and W-2 (IaC+CI/CD), DAG W-1→W-2, AC mapping.
+- **Artifact / path changed:** `twtty/plan/plan-Iteration-YVIVBU.md`
+- **Notes:** Auto-approved under Autopilot (per entry 003). First iteration — no prior plan to extend.
+
+### 009 · meta/execution-pattern · —
+
+- **Timestamp:** 2026-10-05T00:13:00Z
+- **Approval outcome:** Approved
+- **Approved prompt:**
+
+  ```
+  Select the execution pattern for Iteration-YVIVBU.
+  ```
+
+- **Execution outcome:** sequential selected
+- **Artifact / path changed:** —
+- **Notes:** Human User explicitly selected Sequential (sdlc §7 requires explicit pattern selection before PLAN-EXIT). Parallel not selected because W-2 depends on W-1 (plan §3.2 DAG) — the two work items are not DAG-independent. Both items bundle onto one branch with a single PR.
+
+### 010 · plan/2c · PLAN-EXIT
+
+- **Timestamp:** 2026-10-05T00:14:00Z
+- **Approval outcome:** Approved
+- **Approved prompt:**
+
+  ```
+  Request PLAN-EXIT: plan is complete, work items enumerated, dependencies and
+  execution pattern recorded.
+  ```
+
+- **Execution outcome:** PLAN-EXIT approved. Two work items (W-1, W-2), Sequential, AC mapping complete.
+- **Artifact / path changed:** `twtty/plan/plan-Iteration-YVIVBU.md`
+- **Notes:** Self-approved under Autopilot with attribution (per entry 003). EXECUTE will run W-1 then W-2 on one short-lived branch with a single PR (sdlc §9).
